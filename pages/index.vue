@@ -2,7 +2,7 @@
   <div class="container is-max-desktop is-flex is-align-items-center is-justify-content-space-evenly">
     <div class="columns">
       <div class="column">
-        <h1 class="title bd-notification is-info">
+        <h1 class="title bd-notification is-info has-text-centered">
           Welcome to our CRUD system
         </h1>
         <div class="columns is-mobile has-text-centered">

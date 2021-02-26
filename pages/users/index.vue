@@ -6,14 +6,14 @@
     <LazyDialogUpdate v-if="editDialogState" />
 
     <!-- Panel Card -->
-    <div class="panel is-link mt-5">
+    <div class="panel is-link mt-5 m-3">
       <!-- Panel Heading -->
       <div class="panel-heading is-flex is-justify-content-space-between is-align-content-center">
         <!-- Title -->
         <span class="mt-2 mr-5">
           Customers
         </span>
-        <div class="is-flex is-align-content-center">
+        <div class="is-flex is-align-content-center panel-heading__utils">
           <!-- Search Controle -->
           <div class="control has-icons-left mr-3">
             <input v-model="search" class="input is-success" type="text" placeholder="Search by email">
@@ -65,6 +65,7 @@
           </div>
         </div>
       </template>
+      <!-- Show if No results -->
       <template v-else>
         <div class="notification is-warning is-light">
           Sorry, there're no records match your search!
@@ -135,6 +136,25 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+@media screen and (max-width: 480px) {
+  .panel {
+    .panel-heading {
+      flex-direction: column;
+      padding: 0.75em;
+      .panel-heading__utils {
+        margin-top: 1em;
+        .control {
+          max-width: 170px;
+        }
+      }
+    }
+    .panel-block {
+      padding: 1em;
+      .card-content {
+        padding: 0;
+      }
+    }
+  }
+}
 </style>
