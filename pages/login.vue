@@ -1,33 +1,57 @@
 <template>
-  <form class="box">
-    <div class="field">
-      <label class="label">Email</label>
-      <div class="control">
-        <input class="input" type="email" placeholder="e.g. alex@example.com">
+  <div class="container is-max-desktop is-flex is-align-items-center is-justify-content-space-evenly">
+    <form class="box" @submit.prevent="login">
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="control">
+          <input v-model="form.email" class="input" type="email" placeholder="e.g. eve.holt@reqres.in">
+        </div>
       </div>
-    </div>
 
-    <div class="field">
-      <label class="label">Password</label>
-      <div class="control">
-        <input class="input" type="password" placeholder="********">
+      <div class="field">
+        <label class="label">Password</label>
+        <div class="control">
+          <input v-model="form.password" class="input" type="password" placeholder="cityslicka">
+        </div>
       </div>
-    </div>
 
-    <button class="button is-primary">
-      Sign in
-    </button>
-  </form>
+      <button type="submit" class="button is-primary" :class="{'is-loading' :loading}">
+        Sign in
+      </button>
+    </form>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'Login',
-  auth: 'guest'
+  auth: 'guest',
 
+  data: () => ({
+    form: {},
+    loading: false
+  }),
+
+  methods: {
+    async login () {
+      this.loading = true
+      try {
+        await this.$auth.loginWith('local', { data: this.form })
+        this.$toast.success('Welcome Back', { icon: 'fa-heart' })
+        this.$router.push({ path: '/users' })
+      } catch (error) {
+        const message = await error?.response?.data?.error
+        this.$toast.error(message, { icon: 'fa-exclamation-circle' })
+      } finally {
+        this.loading = false
+      }
+    }
+  }
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.container {
+  min-height: 100vh;
+}
 </style>

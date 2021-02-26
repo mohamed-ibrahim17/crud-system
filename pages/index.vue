@@ -7,14 +7,21 @@
         </h1>
         <div class="columns is-mobile has-text-centered">
           <div class="column">
+            <!-- Log in Button -->
             <nuxt-link
+              v-if="!$auth.loggedIn"
               to="/login"
               class="button is-primary is-outlined"
             >
               Login
             </nuxt-link>
+            <!-- Log out Button -->
+            <a v-else class="button is-outlined" @click="$auth.logout()">
+              Log out
+            </a>
           </div>
           <div class="column">
+            <!-- Customers Button -->
             <nuxt-link
               to="/users"
               class="button is-link is-outlined"
@@ -30,7 +37,7 @@
 
 <script>
 export default {
-  auth: 'guest',
+  auth: false,
 
   head () {
     return {
@@ -40,7 +47,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .container {
   margin: 0 auto;
   min-height: 100vh;

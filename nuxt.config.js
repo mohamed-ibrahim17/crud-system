@@ -29,6 +29,10 @@ export default {
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
+  router: {
+    middleware: ['auth']
+  },
+
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/eslint
@@ -42,7 +46,9 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     // https://auth.nuxtjs.org/guide/setup
-    '@nuxtjs/auth-next'
+    '@nuxtjs/auth-next',
+    // https://github.com/nuxt-community/community-modules/tree/master/packages/toast
+    '@nuxtjs/toast'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -50,21 +56,37 @@ export default {
     baseURL: 'https://reqres.in'
   },
 
-  strategies: {
-    local: {
-      token: {
-        property: 'token'
+  toast: {
+    position: 'top-center',
+    iconPack: 'fontawesome',
+    theme: 'bubble',
+    duration: 2000,
+    singleton: true
+  },
+
+  auth: {
+    redirect: {
+      login: '/login',
+      logout: '/',
+      callback: '/login',
+      home: '/'
+    },
+    strategies: {
+      local: {
+        token: {
+          property: 'token'
         // required: true,
         // type: 'Bearer'
-      },
-      user: {
-        property: false
+        },
+        user: {
+          property: 'data'
         // autoFetch: true
-      },
-      endpoints: {
-        login: { url: '/api/login', method: 'post' },
-        logout: false,
-        user: { url: '/api/user/4', method: 'get' }
+        },
+        endpoints: {
+          login: { url: '/api/login', method: 'post' },
+          logout: false,
+          user: { url: '/api/user/4', method: 'get' }
+        }
       }
     }
   },
