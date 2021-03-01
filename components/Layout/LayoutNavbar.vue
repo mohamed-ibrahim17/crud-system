@@ -15,16 +15,16 @@
 
         <div class="navbar-end is-flex is-align-items-center">
           <!-- Log in Button -->
-          <nuxt-link v-if="!$auth.loggedIn" to="/login" class="navbar-item">
+          <nuxt-link v-if="!loggedIn" to="/login" class="navbar-item">
             Log in
           </nuxt-link>
           <template v-else>
             <!-- Logged in User -->
             <span class="is-capitalized mr-2">
-              {{ $auth.user.name }}
+              {{ user && user.name }}
             </span>
             <!-- Log out Button -->
-            <a class="navbar-item" @click="$auth.logout()">
+            <a class="navbar-item" @click="$store.dispatch('auth/logout')">
               Log out
             </a>
           </template>
@@ -35,8 +35,15 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-  name: 'LayoutNavbar'
+  name: 'LayoutNavbar',
+  computed: {
+    ...mapGetters({
+      loggedIn: 'auth/loggedIn',
+      user: 'auth/user'
+    })
+  }
 }
 </script>
 

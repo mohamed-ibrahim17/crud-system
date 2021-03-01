@@ -25,7 +25,7 @@
 <script>
 export default {
   name: 'Login',
-  auth: 'guest',
+  middleware: 'guest',
 
   data: () => ({
     form: {},
@@ -36,7 +36,8 @@ export default {
     async login () {
       this.loading = true
       try {
-        await this.$auth.loginWith('local', { data: this.form })
+        const token = (await this.$axios.post('/api/login', { ...this.form })).data?.token
+        this.$store.dispatch('auth/setToken', token)
         this.$toast.success('Welcome Back', { icon: 'fa-heart' })
         this.$router.push({ path: '/users' })
       } catch (error) {

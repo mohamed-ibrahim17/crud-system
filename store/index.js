@@ -23,6 +23,10 @@ export const mutations = {
 }
 
 export const actions = {
+  async nuxtServerInit ({ dispatch }) {
+    await dispatch('users/fetchUsers')
+  },
+
   nextPage ({ commit }) {
     commit('INCREMENT_PAGE')
   },

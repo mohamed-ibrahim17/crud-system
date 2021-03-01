@@ -79,14 +79,11 @@
 import { mapGetters } from 'vuex'
 export default {
   name: 'Customers',
+  middleware: 'auth',
 
   data: () => ({
     search: null
   }),
-
-  async fetch () {
-    await this.$store.dispatch('users/fetchUsers')
-  },
 
   computed: {
     ...mapGetters({

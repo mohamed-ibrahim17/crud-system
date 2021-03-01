@@ -9,14 +9,14 @@
           <div class="column">
             <!-- Log in Button -->
             <nuxt-link
-              v-if="!$auth.loggedIn"
+              v-if="!loggedIn"
               to="/login"
               class="button is-primary is-outlined"
             >
               Login
             </nuxt-link>
             <!-- Log out Button -->
-            <a v-else class="button is-outlined" @click="$auth.logout()">
+            <a v-else class="button is-outlined" @click="$store.dispatch('auth/logout')">
               Log out
             </a>
           </div>
@@ -36,13 +36,22 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-  auth: false,
+  meta: {
+    auth: false
+  },
 
   head () {
     return {
       title: 'Home'
     }
+  },
+
+  computed: {
+    ...mapGetters({
+      loggedIn: 'auth/loggedIn'
+    })
   }
 }
 </script>
