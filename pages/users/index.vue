@@ -79,7 +79,6 @@
 import { mapGetters } from 'vuex'
 export default {
   name: 'Customers',
-  middleware: 'auth',
 
   data: () => ({
     search: null

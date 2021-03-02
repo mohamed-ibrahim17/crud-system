@@ -37,7 +37,6 @@ export const actions = {
 
   getToken ({ commit }) {
     const token = localStorage.getItem('_authToken') || ''
-    console.log(token)
     commit('SET_TOKEN', token)
   },
 

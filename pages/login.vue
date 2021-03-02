@@ -25,7 +25,9 @@
 <script>
 export default {
   name: 'Login',
-  middleware: 'guest',
+  meta: {
+    auth: 'guest'
+  },
 
   data: () => ({
     form: {},
